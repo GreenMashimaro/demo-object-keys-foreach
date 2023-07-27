@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo object keys foreach</title>
+</head>
+<body>
+  <div>
+    Please press F12 see console output
+  </div>
+
+  <script>
+    const key1 = Symbol('dd')
+    const obj = {
+      aa: 'a1',
+      [key1]: 'hello'
+    }
+    obj.__proto__.bb = 'b1'
+
+    for (let val in obj) {
+      console.log('for in:', val)
+    }
+    // output: for in: aa
+    // output: for in: bb
+    console.log('========')
+    console.log('object.keys(obj):', Object.keys(obj))
+    // output: object.keys(obj): ['aa']
+    console.log('========')
+    console.log('Object.getOwnPropertyNames:', Object.getOwnPropertyNames(obj))
+    // output: Object.getOwnPropertyNames: ['aa']
+    console.log('========')
+    console.log('Reflect.ownKeys:', Reflect.ownKeys(obj))
+    // output: Reflect.ownKeys: (2) ['aa', Symbol(dd)]
+    console.log('========')
+
+    console.log('obj.key1:', obj[key1])
+    // output: obj.key1: hello
+    const symbolkeys = Object.getOwnPropertySymbols(obj)
+    console.log('Object.getOwnPropertySymbols:', symbolkeys)
+    // output: Object.getOwnPropertySymbols: [Symbol(dd)]
+    console.log('obj[symbolkeys[0]]:', obj[symbolkeys[0]])
+    // obj[symbolkeys[0]]: hello
+  </script>
+</body>
+</html>
